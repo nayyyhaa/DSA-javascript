@@ -64,6 +64,18 @@ class LinkedList {
         }
         if(afterNode.value == this.tail.value) this.tail = newNode;
     }
+    
+      reverse() {
+      let revList = null;
+      let tempList = this.head;
+      while (tempList) {
+        let nextEl = tempList.next;
+        tempList.next = revList;
+        revList = tempList;
+        tempList = nextEl;
+      }
+      return revList;
+    };
 
     //LL to array
     toArray() { 
