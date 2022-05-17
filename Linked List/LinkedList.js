@@ -70,12 +70,38 @@ class LinkedList {
         const arr =[];
         let tempEl = this.head;
         while(tempEl) {
-            arr.push(tempEl); //w/ val and next
+            arr.push(tempEl.value); //w/ val and next
             tempEl = tempEl.next;
         }
         return arr;
     }
 }
+
+const unionList = (list1, list2) => {
+  let newList = new LinkedList();
+  let l1head = list1.head;
+  let l2head = list2.head;
+  while (l1head) {
+    if (!newList.firstOccurenceOf(l1head.value)) newList.insertNode(l1head.value);
+    l1head = l1head.next;
+  }
+  while (l2head) {
+    if (!list1.firstOccurenceOf(l2head.value) && (!newList.firstOccurenceOf(l2head.value))) newList.insertNode(l2head.value);
+    l2head = l2head.next;
+  }
+  return newList.toArray();
+}
+
+const intersectionList = (list1, list2) => {
+  let newList = new LinkedList();
+  let l1head = list1.head;
+  while (l1head) {
+    if (list2.firstOccurenceOf(l1head.value)) newList.insertNode(l1head.value);
+    l1head = l1head.next;
+  }
+  return newList.toArray();
+};
+
 
 //Calling functions
 
@@ -84,5 +110,22 @@ ll.insertNode(2);
 ll.insertNode(3);
 ll.deleteNode(2);
 console.log(ll.toArray()); // [{next:.., value:..}, {next:.., value:..},...]
+
+// union + intersection
+const ll1 = new LinkedList();
+ll1.insertNode(2);
+ll1.insertNode(12);
+ll1.insertNode(20);
+ll1.insertNode(15);
+const ll2 = new LinkedList();
+ll2.insertNode(10);
+ll2.insertNode(2);
+ll2.insertNode(23);
+ll2.insertNode(157);
+ll2.insertNode(157);
+ll2.insertNode(12);
+
+console.log(unionList(ll1, ll2))
+console.log(intersectionList(ll1, ll2))
 
 
