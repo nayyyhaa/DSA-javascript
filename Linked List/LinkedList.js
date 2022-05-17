@@ -1,7 +1,7 @@
 class LinkedList { 
-    constructor() {
+    constructor(head = null) {
         // Initial values
-        this.head = null;
+        this.head = head;
         this.tail = null;
     }
 
@@ -65,16 +65,20 @@ class LinkedList {
         if(afterNode.value == this.tail.value) this.tail = newNode;
     }
     
-      reverse() {
+    reverse() {
       let revList = null;
       let tempList = this.head;
+        
       while (tempList) {
         let nextEl = tempList.next;
         tempList.next = revList;
         revList = tempList;
         tempList = nextEl;
       }
-      return revList;
+        
+       revList = new LinkedList(revList)
+       revList.tail = this.head;
+       return revList;
     };
 
     //LL to array
@@ -137,6 +141,7 @@ ll2.insertNode(157);
 ll2.insertNode(157);
 ll2.insertNode(12);
 
+console.log(ll1.reverse().toArray()) // [15, 20, 12, 2]
 console.log(unionList(ll1, ll2))
 console.log(intersectionList(ll1, ll2))
 
